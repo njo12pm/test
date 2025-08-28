@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login site</title>
+    <script>
+        let users = localStorage.getItem('users');
+        if(users===null) {
+            location.href='signup.html'
+        } else {
+            users = JSON.parse(users)
+        }
+    </script>
+</head>
+<body>
+    <div id="login">
+        <h1>로그인</h1>
+        <input type="text" id="username" placeholder="아이디 입력">
+        <input type="password" id="password" placeholder="비밀번호 입력">
+        <button onclick="login()">로그인</button>
+    </div>
+    <script>
+        const login = function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            for(let u of users) {
+                if(username===u.username && password===u.password) {
+                    sessionStorage.setItem('username',username)
+                    location.href='index.html';
+                    return;
+                }
+            }
+            alert('아이디 또는 비밀번호가 틀렸습니다')
+        }
+    </script>
+</body>
+</html>

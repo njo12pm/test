@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const username = sessionStorage.getItem('username');
+        if (username === null) {
+            location.href = "login.html";
+        }
+    </script>
+    <title>할일 작성</title>
+</head>
+<body>
+    <h1>할일 작성</h1>
+    <input type="text" id="title" placeholder="할일">
+    <input type="date" id="deadline" placeholder="마감일">
+    <button onclick="dowrite()">작성</button>
+
+    <script>
+        let tno = localStorage.getItem('tno');
+        if (tno === null) {
+            tno = 1;
+        } else {
+            tno = +tno;
+        }
+
+        let todos = JSON.parse(localStorage.getItem('todos'));
+        if (todos === null) {
+            todos = [];
+        }
+
+        const dowrite = function () {
+            const title = document.getElementById('title').value.trim();
+            const deadline = document.getElementById('deadline').value;
+            const writeday = new Date().toLocaleDateString();
+
+            const newTodo = {
+                tno: tno++,
+                title,
+                writeday,
+                deadline,
+                finish: false
+            };
+
+            todos.push(newTodo);
+            localStorage.setItem('todos', JSON.stringify(todos));
+            localStorage.setItem('tno', tno);
+            location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup site</title>
+    <script></script>
+</head>
+<body>
+     <h1>회원가입</h1>
+        <input type="text" id="username" placeholder="아이디 입력">
+        <input type="password" id="password" placeholder="비밀번호 입력">
+        <button onclick="signup()">회원가입</button>
+        <script>
+            let users = localStorage.getItem('users')
+            if(users===null) {
+                users=[];
+            } else {users = JSON.parse(users)}
+
+            const signup = function() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                for(const u of users) {
+                    if(username===u.username) {
+                        alert('이미 사용중인 아이디 입니다')
+                        return;
+                    }
+                }
+                const user = {username:username,password:password}
+                users.push(user);
+                localStorage.setItem('users',JSON.stringify(users));
+                location.href = 'login.html'
+            }
+        </script>
+</body>
+</html>

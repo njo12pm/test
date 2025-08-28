@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>익명게시판 - 읽기</title>
+    <script>
+        function render(board) {
+            document.getElementById('bno').innerHTML = board.bno;
+            document.getElementById('title').innerHTML = board.title;
+            document.getElementById('nickname').innerHTML = board.nickname;
+            document.getElementById('content').innerHTML = board.content;
+        }
+    </script>
+</head>
+<body>
+    <div>글번호 : <span id='bno'></span></div>
+    <div>제목 : <span id='title'></span></div>
+    <div>작성자 : <span id='nickname'></span></div>
+    <div id="content"></div>
+    <hr>
+    <button onclick="doUpdate">변경하기</button>
+    <button onclick="doDelete">삭제하기</button>
+    <script>
+        const indexOfEqual = location.search.indexOf("=");
+        const bno = location.search.substring(indexOfEqual + 1);
+
+        const boards = JSON.parse(localStorage.getItem('boards'));
+        let 찾았니 = false;
+
+        for (const b of boards) {
+            if (board.bno == bno) {
+                render(board);
+                찾았니 = true;
+                break;
+            }
+        }
+
+        if (!찾았니) {
+            alert("글을 찾지 못했습니다");
+            location.href = 'index.html';
+        }
+
+        
+
+        const doUpdate = ()=>location.href = `update.html?bno=${board.bno}`;
+
+        const doDelete = ()=>{
+            for(let i=0;i<boards.length; i++) {
+                if(boards[i].bno==bno) {
+                    boards.splice(i,1);
+                    break;
+                }
+            }
+            location.href='index.html'
+        }
+        
+    </script>
+</body>
+</html>

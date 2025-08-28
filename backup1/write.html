@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>익명 게시판 - 쓰기</title>
+</head>
+<body>
+    <label>제목:</label>
+    <input type="text" id="title"><br>
+    <label>닉네임:</label>
+    <input type="text" id="nickname"><br>
+    <label>삭제 비밀번호:</label>
+    <input type="password" id="password"><br>
+    <textarea rows="10" id="content"></textarea>
+    <button onclick="doWrite()">작성하기</button>
+<script>
+    function doWrite() {
+        const title = document.getElementById('title').value;
+        const nickname = document.getElementById('nickname').value;
+        const password = document.getElementById('password').value;
+        const content = document.getElementById('content').value;
+
+        const board = { bno: bno++, title, nickname, password, content };
+        boards.push(board);
+
+        localStorage.setItem('boards', JSON.stringify(boards));
+        localStorage.setItem('bno', bno);
+
+        location.href = 'index.html';
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>닉네임</th>
+            </tr>
+        </thead>
+        <tbody id="boards">
+        </tbody>
+    </table>
+    <button><a href="write.html">글 작성</a></button>
+    <br><br><br><br><br><hr>
+    <button onclick="remove()">초기화</button>
+    <script>
+        const boards = initBoards();
+        renderBoards(boards);
+   
+        
+        function initBoards() {
+
+            let boards = localStorage.getItem('boards');
+
+            if(boards===null) {
+                boards = [];
+                localStorage.setItem('boards',JSON.stringify(boards))
+            } else {
+                boards = JSON.parse(boards);
+            }
+            return boards;
+        }
+
+        function renderBoards(boards) {
+            const $boards = document.getElementById('boards');
+            let html = ''
+            for(const board of boards) {
+                html+=`
+                    <tr>
+                        <td>${board.bno}</td>
+                        <td>
+                            <a href='read.html?bno=${board.bno}'>${board.title}</a>
+                        </td>
+                        <td>${board.nickname}</td>
+                    </tr>
+                `;
+            }
+            $boards.innerHTML = html;
+        }
+
+        function remove() {
+            localStorage.removeItem('boards')
+            localStorage.removeItem('bno')
+            location.href = "index.html"
+        }
+    </script>
+</body>
+</html>

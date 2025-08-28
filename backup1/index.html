@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>닉네임</th>
+                <th>날짜</th>
+            </tr>
+        </thead>
+        <tbody id="boards"></tbody>
+        <button href="write.html">변경하기</button>
+    </table>
+    <script>
+        let bno = localStorage.getItem('bno');
+        bno = bno===null? 1 : +bno;
+
+        let boards = localStorage.getItem('boards');
+        boards = boards===null? [] : JSON.parse(boards);
+
+        const $boards = document.getElementById('boards');
+        let html = ''
+        for(const board of boards) {
+            html+=`
+            <tr>
+                <td>${board.bno}</td>
+                <td>${board.title}</td>
+                <td>${board.nickname}</td>
+            </tr>
+            `;
+        }
+        $boards.innerHTML = html;
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script>
+        let users = localStorage.getItem('users');
+        if(users===null) {
+            users = [{username:'spring',password:'1234'},{username:'summer',password:'1234'}];
+            localStorage.setItem('users',JSON.stringify(users));
+        } else {
+            users = JSON.parse(users);
+        }
+
+        const username = sessionStorage.getItem('username');
+        if(username!==null) {
+            location.href='index.html'
+        }
+    </script>
+</head>
+<body>
+    <h1>로그인</h1>
+    <input type="text" id="username" placeholder="아이디 입력">
+    <input type="password" id="password" placeholder="비밀번호 입력">
+    <button onclick="login()">로그인</button>
+    <script>
+        const login=function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            for(const u of users) {
+                if(username===u.username && password===u.password) {
+                    sessionStorage.setItem('username',username);
+                    location.href='index.html';
+                    return;
+                }
+            }
+            alert('로그인 실패')
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="board.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="board.js"></script>
+    <title>글 목록</title>
+</head>
+<body>
+    <div id="app">
+        <table class="table table-hover">
+            <thead>
+            </thead>
+            <tbody id="boards">
+
+            </tbody>
+        </table>
+            
+        <div class="text-end">
+            <a href="write.html" class="btn btn-success">글쓰기</a>
+        </div>
+
+    </div>
+    <script>
+        const boards = getBoards();
+        render();
+
+        function render() {
+            const $boards = document.getElementById('boards');
+            let html = '';
+
+            for(const board of boards) {
+                html += `
+                <tr>
+                    <td>${board.bno}</td>
+                    <td><a href="read.html?bno=${board.bno}">${board.title}</td>
+                    <td>${board.name}</td>
+                </tr>
+                `;
+            }
+            $boards.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="board.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="board.js"></script>
+    <title>글 읽기</title>
+</head>
+<body>
+    <div id="app">
+        <h1>글 읽기</h1>
+        <table class="table">
+            <tr>
+                <td>제목</td>
+                <td><input type="text" id="title" readonly></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td><input type="text" id="name" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea class="form-control" id="content" readonly></textarea>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-warning" onclick="location.href=`update.html?bno=${board.bno}`">수정하기</button>
+        <button class="btn btn-dark" onclick="doDelete()">삭제하기</button>
+    </div>
+
+    <script>
+
+        const 등호의위치 = location.search.indexOf("=");
+        const bno = +(location.search.substring(등호의위치 +1))
+
+        const boards = getBoards();
+
+        const board = getBoard(boards,bno);
+        if(board === null) {
+            location.href = "index.html"
+        }
+
+
+
+        render();
+
+        function render() {
+            document.getElementById('title').value=board.title;
+            document.getElementById('name').value=board.name;
+            document.getElementById('content').value=board.content;
+            
+        }
+
+        function doDelete() {
+            for(let i=0; i<boards.length; i++) {
+                if(boards[i].bno===bno) {
+                    boards.splice(i,1);
+                    localStorage.setItem('boards',JSON.stringify(boards));
+                }
+            }
+            location.href = "index.html"
+        }
+    </script>
+</body>
+</html>

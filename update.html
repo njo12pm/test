@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="board.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="board.js"></script>
+    <script>
+        // ?bno=3 -> =의 위치를 찾는다 -> =다음부터 자른다 -> 3
+        const 등호의위치=location.search.indexOf("=");
+        const bno = +(location.search.substring(등호의위치+1));
+        const boards = getBoards();
+
+        // 3을 가지고 board를 읽는다. 글이 없는 경우(null)에는 루트로
+        const board = getBoard(boards,bno);
+        if(board==null) {
+            location.href = "index.html";
+        }
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>글 변경하기</h1>
+        <table class="table">
+            <tr>
+                <td>글번호</td>
+                <td><input class="form-control" type="text" id="bno"></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td><input class="form-control" type="text" id="title"></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td><input class="form-control" type="text" id="nickname"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input class="form-control" type="password" id="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea class="form-control" id="content"></textarea>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-danger" onclick="doUpdate()">변경하기</button>
+    </div>
+    <script>
+        render();
+
+        function render() {
+            document.getElementById('title').value=board.title;
+            document.getElementById('bno').value=board.bno;
+            document.getElementById('content').value=board.content;
+            document.getElementById('nickname').value=board.nickname;
+        }
+
+        function doUpdate() {
+            const title = document.getElementById('title').value;
+            const nickname = document.getElementById('nickname').value;
+            const password = document.getElementById('password').value;
+            const content = document.getElementById('content').value;
+            
+            if(title===''||password===''||content==='') {
+                alert ("제목, 비밀번호, 내용은 필수입력입니다")
+                return;
+            }
+
+            for(const b of boards) {
+                if(b.bno===bno) {
+                    if(b.password===password) {
+                        b.title = title;
+                        b.content = content;
+                        b.nickname = nickname;
+                        localStorage.setItem('boards',JSON.stringify(boards));
+                        location.href = `read.html?bno${bno}`
+                    } else {
+                        alert("비밀번호가 일치하지 않습니다")
+                    }
+                }
+            }   
+        }
+    </script>
+</body>
+</html>

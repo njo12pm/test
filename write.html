@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="board.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="board.js"></script>
+    <script>
+        const boards = getBoards();
+    </script>
+    <title>글 작성</title>
+</head>
+<body>
+    <div id="app">
+        <div class="mb-3 mt-3">
+            <label class="form-label">제목:</label>
+            <input type="text" id="title" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label class="form-label">작성자:</label>
+            <input type="text" id="nickname" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label class="form-label">비밀번호</label>
+            <input type="password" id="password" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <textarea class="form-label" id="content" placeholder="좋은 글 남겨주세요"></textarea>
+        </div>
+        <div class="mb-3 mt-3">
+        <button class="btn btn-primary" onclick="doWrite();">작성하기</button>
+        </div>
+    </div>
+
+    <script>
+        function doWrite() {
+            const title = document.getElementById('title').value;
+            const nickname = document.getElementById('nickname').value;
+            const password = document.getElementById('password').value;
+            const content = document.getElementById('content').value;
+            
+            if(title===''|| nickname===''||password===''||content==='') {
+                alert ("모든 필드는 필수입력입니다")
+                return;
+            }
+
+            const board = {bno:getNewBno(), title, nickname, password, content};
+            boards.push(board);
+            localStorage.setItem('boards', JSON.stringify(boards));
+            location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

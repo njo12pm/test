@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 객체</title>
+</head>
+<body>
+    <script>
+        // 객체는 속성과 method호 구성된다
+        // 속성은 이름과 값, 그리고 method는 값을 처리하는 함수
+        
+        // 설계도없이 속성과 메소드로 객체를 생성할 수 있다
+        const hakseng = {
+            irum:'홍길동',
+            nai:20,
+            insa:function() {
+                console.log(this.irum);
+            }
+        }
+        hakseng.insa();
+
+        const saram = {};
+        saram.nai = 20;
+        saram.sogae = function () {
+            console.log(this.nai);
+        }
+        saram.sogae()
+    </script>
+</body>
+</html>

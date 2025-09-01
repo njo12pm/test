@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수와 동기 처리</title>
+</head>
+<body>
+    <script>
+        //콜백함수 : 개발자가 정의한 다음 실행을 위탁하는 함수
+        function f1() {
+            console.log("1번함수");
+        }
+
+        // 함수 표현식(espression) - f2 뒤에서만 호출 가능
+        const f2=function() {
+            console.log("2번함수");
+        }
+
+        //화살표 함수 -> 자바에서는 Lamba
+        const f3=()=>console.log("3번함수")
+
+        //동기 처리 : 한번에 함수를 1개씩 실행한다
+        f1();
+        f2();
+        f3();
+    </script>
+</body>
+</html>

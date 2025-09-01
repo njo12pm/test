@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>응답방식</title>
+</head>
+<body>
+    <ul id="target">
+
+    </ul>
+    <script>
+        //백의 응답 방식
+        //1.처리결과를 가지고 html을 만들어서 응답 -> 프론트는 응답을 그대로 화면에 출력(legacy,MVC)
+        //2.처리결과만 응답 -> 프론트에서 응답을 가지고 화면을 구성(rest)
+
+        //axios로 요청을 보내면 서버가 응답한다 -> JSON.parse()필요없음. 브라우저가 객체로 변환
+        const $target = document.getElementById('target')
+        axios.get('https://sample.bmaster.kro.kr/contacts?pageno=1&pagesize=5')
+        .then(function(res) {
+            let html = ``;
+            for(const c of res.data.contacts) {
+                html+=`<li>${c.name} ${c.tel} <img src='${c.photo}'</li>`
+            }
+            $target.innerHTML = html;
+        }).catch(function(err) {
+            console.log(err);
+        })
+    </script>
+</body>
+</html>

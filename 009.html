@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const {pageno, pagesize, totalcount, blockSize=5} = {pageno:1, pagesize:10, totalcount:102 };
+        const numberOfPages = Math.ceil(totalcount/pagesize);
+        for(let i=1; i<=11; i++) {
+            console.log(i,Math.floor(i-1)/blockSize);
+        }
+
+        for(let i=1; i<=11; i++) {
+            const prev = Math.floor((i-1)/blockSize)*blockSize;
+            const start = prev + 1;
+            let end = prev + blockSize;
+            let next = end + 1;
+
+            if(end>=numberOfPages) {
+                end = numberOfPages;
+                next=0;
+            }
+            console.log(i,prev,start,end,next)
+        }
+    </script>
+</body>
+</html>

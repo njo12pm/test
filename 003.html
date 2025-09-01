@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>axios</title>
+</head>
+<body>
+    <script>
+        // 함수는 동기 실행
+        function sum(a,b) {
+            return a+b;
+        }
+
+        // sum 이 끝날때까지 코드가 멈춤 -> c에는 sum의 결과값이 들어간다
+        const c = sum(10,20);
+
+
+        //웹은 http 통신규약(프로토콜) 사용 + 보안 ->https
+        //https는 요청하기 전에 서버측 인증서를 확인한다(혹시 조작된 서버가 아닌가?)
+        axios.get("http://sample.bmaster.kro.kr/contacts").then(res=>console.log(res))
+            .catch(res=>console.log(res));
+            console.log(res);
+
+        console.log("hello world");
+
+        //위코드가 동기면 response가 도착할 때까지 코드가 blocking
+        //위코드가 비동기면 axios.get과 console.log가 동시에 실행
+    </script>
+</body>
+</html>

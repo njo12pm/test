@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기 처리 예제</title>
+</head>
+<body>
+    <script>
+        function hello() {
+            console.log("Hello Asynchronous")
+        }
+
+        //2번째 파라미터만큼 지나고 나서 첫번째 파라미터를 실행해라
+        //setTimeout은 비동기 함수.
+        //비동기 처리할 때는 콜백함수를 사용한다
+        setTimeout(hello,5000)
+        console.log("안녕하세요")
+        console.log("반갑습니다")
+    </script>
+</body>
+</html>

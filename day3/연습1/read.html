@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        #app{width: 800px; margin: 0 auto;}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <table class="table">
+            <tr>
+                <td>글번호</td>
+                <td id="bno"></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td id="title"></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td id="nickname"></td>
+            </tr>
+            <tr>
+                <td>작성일</td>
+                <td id="writeday"></td>
+            </tr>
+            <tr>
+                <td colspan="2" id="content"></td>
+            </tr>
+        </table>
+        <button class="btn btn-success" onclick="location.href=`update.html?bno=${bno}`">변경하기</button>
+    </div>
+</body>
+
+<script>
+    const searchParams = new URLSearchParams(location.search);
+        const bno = searchParams.get('bno');
+        if(bno===null) {
+            location.href = "list.html"
+        }
+
+        axios.get(`http://localhost:3000/boards?bno=${bno}`)
+            .then(res=>{
+                const {bno, title, content, writeday, nickname} = res.data;
+                document.getElementById('bno').innerHTML = bno;
+                document.getElementById('nickname').innerHTML = nickname;
+                document.getElementById('title').innerHTML = title;
+                document.getElementById('content').innerHTML = content;
+                document.getElementById('writeday').innerHTML = writeday;
+            })
+            .catch(res=>console.log(res))
+</script>
+
